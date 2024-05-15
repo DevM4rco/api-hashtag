@@ -30,4 +30,18 @@ app.put('/:acronym', (req, res) => {
 	res.status(200).send(teamSelected);
 });
 
+app.post('/', (req, res) => {
+	const newTeam = req.body;
+	table.push(newTeam);
+	res.status(200).send(newTeam);
+});
+
+app.delete('/:acronym', (req, res) => {
+	const acronym = req.params.acronym.toUpperCase();
+	const indexSelected = table.findIndex(team => team.sigla === acronym);
+
+	const teamDeleted = table.splice(indexSelected, 1);
+	res.status(200).send(teamDeleted);
+});
+
 app.listen(port, () => console.log(`Servidor rodando http://localhost:${port}`));
